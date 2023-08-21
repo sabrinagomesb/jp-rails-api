@@ -5,12 +5,24 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+puts 'Inserting kind of contact...'
+
+kinds = %w[friend family work]
+kinds.each do |kind|
+  Kind.find_or_create_by(description: kind)
+end
+
+puts 'Kind of contact inserted!'
+
+
 puts 'Inserting contact...'
 100.times do
   Contact.find_or_create_by(
     name: Faker::Name.name,
     email: Faker::Internet.email,
-    birthdate: Faker::Date.birthday(min_age: 18, max_age: 65)
+    birthdate: Faker::Date.birthday(min_age: 18, max_age: 65),
+    kind: Kind.all.sample
   )
 end
 puts 'Contact inserted!'
+
