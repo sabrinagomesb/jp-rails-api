@@ -14,7 +14,6 @@ end
 
 puts 'Kind of contact inserted!'
 
-
 puts 'Inserting contact...'
 100.times do
   Contact.find_or_create_by(
@@ -26,3 +25,14 @@ puts 'Inserting contact...'
 end
 puts 'Contact inserted!'
 
+puts 'Inserting phone...'
+
+Contact.all.each do |contact|
+  rand(1..5).times do
+    Phone.find_or_create_by(
+      number: Faker::PhoneNumber.cell_phone,
+      contact:
+    )
+  end
+end
+puts 'Phone inserted!'
