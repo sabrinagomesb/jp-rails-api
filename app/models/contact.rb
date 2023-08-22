@@ -1,18 +1,18 @@
 class Contact < ApplicationRecord
-  belongs_to :kind
+  belongs_to :kind, optional: true
 
-  def kind_description
-    self.kind.description
-  end
+  # def kind_description
+  #   self.kind.description
+  # end
 
-  def as_json()
-    super(
-      root: true,
-      except: [:kind_id],
-      methods: [:kind_description]
-      # include: { kind: { only: :description }
-    )
+  # def as_json()
+  #   super(
+  #     root: true,
+  #     except: [:kind_id],
+  #     include: { kind: { only: :description } }
+  #     # methods: [:kind_description]
 
-  end
+  #   )
 
+  # end
 end
