@@ -10,7 +10,7 @@ class ContactsController < ApplicationController
 
   # GET /contacts/1
   def show
-    render json: @contact
+    render json: @contact, methods: :kind_description, include: :phones
   end
 
   # POST /contacts
