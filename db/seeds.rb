@@ -5,6 +5,21 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+# Create States and Cities from JSON file
+
+filepath = ENV.fetch('FILEPATH', Rails.root.join('db', 'states_cities.json').to_s)
+states = JSON.parse(File.read(filepath))
+
+states.each do |state|
+  state_obj = State.find_or_create_by(acronym: state['acronym'], name: state['name'])
+
+  state['cities'].each do |city|
+    City.find_or_create_by(name: city['name'], state: state_obj)
+    puts "Adicionando a cidade #{city['name']} ao estado #{state_obj.name}"
+  end
+end
+
 puts 'Inserting kind of contact...'
 
 kinds = %w[friend family work]
@@ -24,6 +39,16 @@ puts 'Inserting contact...'
   )
 end
 puts 'Contact inserted!'
+
+puts 'Inserting address...'
+Contact.all.each do |contact|
+  Address.find_or_create_by(
+    street: Faker::Address.street_name,
+    city_id: City.all.sample.id,
+    contact:
+  )
+end
+puts 'Address inserted!'
 
 puts 'Inserting phone...'
 

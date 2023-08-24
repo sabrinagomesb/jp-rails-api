@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_22_184139) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_24_221633) do
+  create_table "addresses", force: :cascade do |t|
+    t.string "street"
+    t.integer "contact_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "city_id", null: false
+    t.index ["city_id"], name: "index_addresses_on_city_id"
+    t.index ["contact_id"], name: "index_addresses_on_contact_id"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.integer "state_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["state_id"], name: "index_cities_on_state_id"
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -35,6 +53,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_22_184139) do
     t.index ["contact_id"], name: "index_phones_on_contact_id"
   end
 
+  create_table "states", force: :cascade do |t|
+    t.string "acronym"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "addresses", "cities"
+  add_foreign_key "addresses", "contacts"
+  add_foreign_key "cities", "states"
   add_foreign_key "contacts", "kinds"
   add_foreign_key "phones", "contacts"
 end
