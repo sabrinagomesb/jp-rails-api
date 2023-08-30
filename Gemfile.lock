@@ -85,6 +85,7 @@ GEM
     erubi (1.12.0)
     faker (3.2.1)
       i18n (>= 1.8.11, < 2)
+    foreman (0.87.2)
     globalid (1.1.0)
       activesupport (>= 5.0)
     i18n (1.14.1)
@@ -178,6 +179,7 @@ DEPENDENCIES
   bootsnap
   debug
   faker
+  foreman
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.5)
